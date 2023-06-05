@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 
-class Product:
+class Product(models.Model):
     name = models.CharField(
         verbose_name=_('persian name'),
         max_length=200,
@@ -24,7 +24,7 @@ class Product:
         return self.name
 
 
-class Category:
+class Category(models.Model):
     name = models.CharField(
         verbose_name=_('name'),
         max_length=50,
@@ -44,7 +44,7 @@ class Category:
         blank=True,
     )
     image = models.ImageField(
-        verbose_name=_('icon'),
+        verbose_name=_('image'),
         upload_to='./media/category/images/',
         null=True,
         blank=True,
@@ -66,7 +66,7 @@ class Category:
         return self.slug
 
 
-class Image:
+class Image(models.Model):
     name = models.CharField(
         verbose_name=_('name'),
         max_length=50,
@@ -93,7 +93,7 @@ class Image:
         return self.name
 
 
-class Comment:
+class Comment(models.Model):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=150,
@@ -118,7 +118,7 @@ class Comment:
         return self.title
 
 
-class Question:
+class Question(models.Model):
     text = models.TextField(
         verbose_name='title',
     )
@@ -136,7 +136,7 @@ class Question:
         return self.text
 
 
-class Answer:
+class Answer(models.Model):
     text = models.TextField(
         verbose_name=_('answer'),
     )
@@ -154,7 +154,7 @@ class Answer:
         return self.text
 
 
-class ProductOption:
+class ProductOption(models.Model):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=200,
@@ -173,7 +173,7 @@ class ProductOption:
         return f'{self.title} - {self.product}'
 
 
-class SellerProductPrice:
+class SellerProductPrice(models.Model):
     product = models.ForeignKey(
         'Product',
         verbose_name=_('product'),
