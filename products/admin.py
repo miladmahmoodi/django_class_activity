@@ -2,8 +2,12 @@ from django.contrib import admin
 from . import models
 
 
-class ImageInline(admin.TabularInline):
+class ProductImageInline(admin.TabularInline):
     model = models.Image
+
+
+class ProductOptionInline(admin.TabularInline):
+    model = models.ProductOption
 
 
 @admin.register(models.Product)
@@ -23,7 +27,8 @@ class ProductAdmin(admin.ModelAdmin):
     ]
 
     inlines = [
-        ImageInline,
+        ProductImageInline,
+        ProductOptionInline,
     ]
 
 
@@ -62,17 +67,48 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Image)
 class ImageAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'id',
+        'name',
+        'alt',
+    ]
 
 
 @admin.register(models.Comment)
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'id',
+        'title',
+        'text',
+        'rate',
+        'user_email',
+        'product',
+    ]
+    list_filter = [
+        'rate',
+        'product'
+    ]
+    search_fields = [
+        'product',
+        'rate',
+    ]
 
 
 @admin.register(models.Answer)
 class AnswerAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'id',
+        'text',
+        'user_email',
+        'question',
+    ]
+    list_filter = [
+        'question',
+    ]
+    search_fields = [
+        'question',
+        'user_email',
+    ]
 
 
 class AnswerInline(admin.TabularInline):
@@ -81,6 +117,19 @@ class AnswerInline(admin.TabularInline):
 
 @admin.register(models.Question)
 class QuestionAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'text',
+        'user_email',
+        'product'
+    ]
+    list_filter = [
+        'product',
+    ]
+    search_fields = [
+        'product',
+        'user_email',
+    ]
     inlines = [
         AnswerInline,
     ]
@@ -88,7 +137,12 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(models.ProductOption)
 class ProductOptionAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'id',
+        'title',
+        'value',
+        'product',
+    ]
 
 
 @admin.register(models.SellerProductPrice)
