@@ -10,6 +10,11 @@ class ProductOptionInline(admin.TabularInline):
     model = models.ProductOption
 
 
+class SellerProductPriceInline(admin.TabularInline):
+    model = models.SellerProductPrice
+    extra = 1
+
+
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
@@ -29,6 +34,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [
         ProductImageInline,
         ProductOptionInline,
+        SellerProductPriceInline,
     ]
 
 
