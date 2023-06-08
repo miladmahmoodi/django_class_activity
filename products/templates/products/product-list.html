@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+لیست کالاها
+{% endblock %}
+
+
+{% block body %}
+
+<form action="." method="get">
+  <input type="text" name="search">
+  <input type="submit" value="search">
+</form>
+
+
+<ul>
+    {% for product in products %}
+      <li>
+        <a href="{% url 'products:product_detail' product.id %}">
+          <div>
+            <h2>
+                {{ product.name }}
+            </h2>
+          </div>
+        </a>
+      </li>
+    {% endfor %}
+</ul>
+{% endblock %}
