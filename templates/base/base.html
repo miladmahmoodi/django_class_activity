@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div>
+        <nav>
+          <ul>
+            <li>
+              <a href="{% url 'products:products' %}">صفحه اصلی</a>
+            </li>
+              {% for category in navbar %}
+                  <li>
+                    <a href="">{{category.name}}</a>
+                  </li>
+              {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+    {% block body %}{% endblock %}
+
+</body>
+</html>
