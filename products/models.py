@@ -39,13 +39,13 @@ class Category(models.Model):
     )
     icon = models.ImageField(
         verbose_name=_('icon'),
-        upload_to='./media/category/icons/',
+        upload_to='category/icons/',
         null=True,
         blank=True,
     )
     image = models.ImageField(
         verbose_name=_('image'),
-        upload_to='./media/category/images/',
+        upload_to='category/images/',
         null=True,
         blank=True,
     )
@@ -77,12 +77,13 @@ class Image(models.Model):
     )
     image = models.ImageField(
         verbose_name=_('image'),
-        upload_to='./media/products/images/',
+        upload_to='product/images/',
     )
     product = models.ForeignKey(
         'Product',
         verbose_name=_('product'),
         on_delete=models.CASCADE,
+        related_name='images'
     )
     is_default = models.BooleanField(
         verbose_name=_('is default image'),
@@ -167,6 +168,7 @@ class ProductOption(models.Model):
         'Product',
         verbose_name=_('product'),
         on_delete=models.CASCADE,
+        related_name='options',
     )
 
     def __str__(self):
@@ -180,7 +182,7 @@ class SellerProductPrice(models.Model):
         on_delete=models.CASCADE,
     )
     # seller
-    price = models.PositiveIntegerField(
+    price = models.PositiveSmallIntegerField(
         verbose_name=_('price'),
     )
     created_at = models.DateTimeField(
@@ -193,4 +195,4 @@ class SellerProductPrice(models.Model):
     )
 
     def __str__(self):
-        return self.price
+        return f'{self.product} - {self.price}'
